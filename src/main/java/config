@@ -1,0 +1,5 @@
+Root User: adminerrTP52
+   Root Password: h84vmcpTg6P7
+   Database Name: springthyme
+
+Connection URL: mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/
