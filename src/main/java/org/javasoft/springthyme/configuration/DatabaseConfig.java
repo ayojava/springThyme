@@ -57,6 +57,7 @@ public class DatabaseConfig {
         return factoryBean;
     }
 
+    
     @Bean
     @Profile("openshift")
     public DataSource openshiftDataSource() {
