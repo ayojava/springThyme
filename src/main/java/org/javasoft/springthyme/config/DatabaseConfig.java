@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javasoft.springthyme.configuration;
+package org.javasoft.springthyme.config;
 
 import java.util.Properties;
 import javax.sql.DataSource;
@@ -16,10 +16,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -50,11 +52,19 @@ public class DatabaseConfig {
     @Profile("localhost")
     public LocalContainerEntityManagerFactoryBean localHostEntityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-        factoryBean.setPackagesToScan(new String[]{"org.javasoft.springmvc.entity"});
+        factoryBean.setPackagesToScan(new String[]{"org.javasoft.springthyme.entity"});
         factoryBean.setDataSource(localHostDataSource());
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
         factoryBean.setJpaProperties(jpaProperties());
         return factoryBean;
+    }
+    
+    @Bean(name="transactionManager")
+    @Profile("localhost")
+    public PlatformTransactionManager localHostTransactionManager(){
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(localHostEntityManagerFactory().getObject());
+        return transactionManager;
     }
 
     
@@ -81,6 +91,15 @@ public class DatabaseConfig {
         return factoryBean;
     }
 
+    @Bean(name="transactionManager")
+    @Profile("openshift")
+    public PlatformTransactionManager openshiftTransactionManager(){
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(openshiftEntityManagerFactory().getObject());
+        return transactionManager;
+    }
+    
+    
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
@@ -91,8 +110,10 @@ public class DatabaseConfig {
     private Properties jpaProperties() {
         return new Properties() {
             {
-                setProperty("javax.persistence.schema-generation.create-database-schemas", "true");
-                setProperty("javax.persistence.schema-generation.database.action", "drop-and-create");
+                //setProperty("javax.persistence.schema-generation.create-database-schemas", "true");
+                //setProperty("javax.persistence.schema-generation.database.action", "drop-and-create");
+                //setProperty("javax.persistence.schema-generation.database.action", "create");
+                setProperty("hibernate.hbm2ddl.auto", "update");
                 setProperty("hibernate.format_sql", dbProperty.getHibernateFormatSql());
                 setProperty("hibernate.dialect", dbProperty.getHibernateDialect());
                 setProperty("hibernate.show_sql", dbProperty.getHibernateShowSql());
@@ -105,4 +126,6 @@ public class DatabaseConfig {
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
+    
+    
 }

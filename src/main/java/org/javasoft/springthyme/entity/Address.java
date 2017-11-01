@@ -32,7 +32,9 @@ public class Address {
 
     @NotNull
     private String country;
-
+    
+    private String zipCode;
+    
     private String contactPhoneNo;
 
     @Email(message = "{email.invalid}")

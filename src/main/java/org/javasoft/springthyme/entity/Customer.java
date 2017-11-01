@@ -7,7 +7,6 @@ package org.javasoft.springthyme.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.mail.Address;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -17,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -39,7 +39,6 @@ public class Customer implements Serializable {
     @NotNull
     private String title;
 
-    @NotNull
     private String regNo;
 
     @NotNull
@@ -60,5 +59,13 @@ public class Customer implements Serializable {
     @Column(updatable = false)
     @CreationTimestamp
     private Date createDate;
+    
+    @Transient
+    private String fullName;
+    
+    public String getFullName(){
+        return title + " " + firstName + " " + lastName ;
+    }
 
+   
 }

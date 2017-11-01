@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head lang="en">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>TODO supply a title</title>
+       
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/springthyme.css}"/>
+        
+        <!--
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootswatch/3.3.7/united/bootstrap.min.css}"/>   
+        -->
+    </head>
+    <body>
+        <div id="headerDiv" th:insert="fragments/header :: headerSection"></div>
+
+
+        <table class="table table-bordered table-condensed" style="margin-top: 2px;">
+            <tr>
+                <td style="width: 13%;">
+                    <div class="col-md-12">
+                        <div th:replace="fragments/menu :: imageSection">
+                            
+                        </div>
+                        <div th:replace="fragments/menu :: menuSection">
+                            
+                        </div>
+                    </div>
+                </td>
+                <td height="550px">
+            <th:block th:if="${message != null}">
+                <div class="row">
+                    <div class="col-md-12" th:insert="fragments/alert :: alertMessage (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}})">
+                        Inside Alert
+                    </div>
+                </div>
+
+            </th:block>
+            <div layout:fragment="bodyContent">
+
+            </div>
+        </td>
+    </tr>
+
+</table>
+<div id="footerDiv"  th:insert="fragments/footer :: footerSection">
+
+</div>
+<!--
+
+-->
+<script th:src="@{/webjars/jquery/1.9.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/springthyme.js}"></script>
+</body>
+</html>

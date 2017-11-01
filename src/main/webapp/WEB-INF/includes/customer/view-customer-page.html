@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{templates/main-template}">
+    <title th:text="${View -(customer.firstName)}">TODO supply a title</title>
+</head>
+<body>
+    <div layout:fragment="bodyContent">
+        
+            <div class="row add-padding">
+                
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <i class="fa fa-binoculars fa-1g" style="color: #FFD700"></i>
+                        <span class="pnx-page-title-text" th:text="#{customer.view}"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            
+                            <a th:href="@{/customer/edit/{customerID}(customerID=${customer.customerID})}" class="btn btn-primary btn-round-sm btn-sm">
+                                <i class="fa fa-fw fa-edit" aria-hidden="true"></i> Edit
+                            </a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            <a th:href="@{/customer/}" class="btn btn-primary btn-round-sm btn-sm">
+                                <i class="fa fa-home" aria-hidden="true"></i>Close
+                            </a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="row add-padding">
+                <div class=" form-group">
+                    <div class="col-md-12">
+                        <hr size="0" class="page-separator" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row add-padding">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label id="regNoLbl" class="control-label" th:text="#{customer.regNo}"></label>
+                    </div>
+                    <div class="col-md-4">
+                        <span th:text="${customer.regNo}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label id="fullNameLbl" class="control-label" th:text="#{customer.fullName}"></label>
+                    </div>
+                    <div class="col-md-4">
+                        <span th:text="${customer.fullName}"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row add-padding">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label id="genderLbl" class="control-label" th:text="#{customer.gender}"></label>
+                    </div>
+                    <div class="col-md-2">
+                        <span th:text="${customer.gender}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label id="emailLbl" class="control-label" th:text="#{customer.email}"></label>
+                    </div>
+                    <div class="col-md-2">
+                        <span th:text="${customer.addressTemplate.email}"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label id="contactPhoneNoLbl" class="control-label" th:text="#{customer.contactPhoneNo}"></label>
+                    </div>
+                    <div class="col-md-2">
+                        <span th:text="${customer.addressTemplate.contactPhoneNo}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row add-padding">
+                <div class="col-md-12">
+                    <hr size="0" class="page-separator" />
+                </div>
+
+            </div>
+
+            <div class="row add-padding">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label id="streetLbl" class="control-label" th:text="#{customer.street}"/>
+                    </div>
+                    <div class="col-md-4">
+                        <span th:text="${customer.addressTemplate.street}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label id="cityLbl" class="control-label" th:text="#{customer.city}"/>
+                    </div>
+                    <div class="col-md-4">
+                        <span th:text="${customer.addressTemplate.city}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row add-padding">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label id="countryLbl" class="control-label" th:text="#{customer.country}"/>
+                    </div>
+                    <div class="col-md-4">
+                        <span th:text="${customer.addressTemplate.country}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label id="zipCodeLbl" class="control-label" th:text="#{customer.zipCode}"/>
+                    </div>
+                    <div class="col-md-4">
+                        <span th:text="${customer.addressTemplate.zipCode}"></span>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</body>
+</html>

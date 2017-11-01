@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+
+<div class="col-md-12" style="text-align: center;">
+                <s:url value="/images/display.jpg" htmlEscape="true" var="homeImg"/>
+                <img class="img-circle profile-image center-block" src="${homeImg}" />	
+        </div>
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <div class="row" th:fragment="imageSection">
+        <img src="#" th:src="@{/images/display.jpg}" class="img-circle profile-image center-block"/>
+    </div>
+    
+    <div class="row" th:fragment="menuSection">
+        <form id="menuForm" method="post">
+            <ul class="nav nav-pills nav-stacked">
+                <li th:class="${home}">
+                    <a href="../includes/home.html" th:href="@{/home}">
+                        <i class="fa fa-home fa-1g" aria-hidden="true"></i> [[#{menu.home}]]
+                    </a>
+                </li>
+                <li th:class="${customerLink}">
+                    <a href="../includes/customer/list-customer-page.html" th:href="@{/customer}">
+                        <i class="fa fa-user fa-1g" aria-hidden="true"></i>[[#{menu.customer}]]
+                    </a>
+                </li>
+            </ul>
+        </form>
+
+    </div>
+
+</html>

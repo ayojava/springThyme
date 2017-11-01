@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{templates/main-template}">
+    <title>New Customer</title>
+    <body>
+        <div  layout:fragment="bodyContent">
+            <form action="#" th:action="@{/customer/new}" th:object="${customer}" method="post" id="newCustomerForm">
+                <div class="row add-padding">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <i class="fa fa-plus fa-1g" style="color: #FFD700"></i>
+                            <span class="pnx-page-title-text" th:text="#{customer.new}"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary btn-round-sm btn-sm" value="Save">
+                                    <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Save
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button id="close-customer-button" type="button" class="btn btn-primary btn-round-sm btn-sm" value="Close">
+                                    <i class="fa fa-home" aria-hidden="true"></i> Close
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="row add-padding">
+                    <div class=" form-group">
+                        <div class="col-md-12">
+                            <hr size="0" class="page-separator" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row add-padding">
+                    <div class=" form-group">
+                        <div class="col-md-12">
+                            <span style="padding-left: 2px;"> 
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </span> 
+                            <span class="text-success" th:text="#{customer.personalDetails}"/> 
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row add-padding">
+                    <div class="form-group" th:classappend="${#fields.hasErrors('title')} ? has-error">
+                        <div class="col-md-2">
+                            <label id="titleLbl" class="control-label" th:text="#{customer.title}"></label>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" th:field="*{title}" >
+                                <option th:each="aTitle : ${customerTitle}" th:value="${aTitle}" th:text="${aTitle}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('gender')} ? has-error">
+                        <div class="col-md-2">
+                            <label id="genderLbl" class="control-label" th:text="#{customer.gender}"/>
+                        </div>
+                        <div class="col-md-4">
+                            <span th:each="aGender : ${genders}">
+                                <input type="radio" th:field="*{gender}" th:value="${aGender}" />
+                                <label class="radio-inline control-label" th:for="${#ids.prev('gender')}" th:text="#{${'customer.'+aGender}}">Gender</label>
+                            </span>
+                        </div>
+                    </div> 
+                </div>
+
+
+                <div class="row add-padding">
+                    <div class="form-group " th:classappend="${#fields.hasErrors('firstName')} ? has-error">
+                        <div class="col-md-2">
+                            <label id="firstNameLbl" class="control-label" th:text="#{customer.firstName}"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input id="firstNameTxt" type="text" th:field="*{firstName}" class="form-control" required 
+                                   th:placeholder="#{watermark.firstName}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" th:classappend="${#fields.hasErrors('lastName')} ? has-error">
+                        <div class="col-md-2">
+                            <label id="lastNameLbl" class=" control-label" th:text="#{customer.lastName}"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input id="lastNameTxt" type="text" th:field="*{lastName}" class="form-control" 
+                                   th:placeholder="#{watermark.lastName}" required/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row add-padding">
+                    <div class="form-group" th:classappend="${#fields.hasErrors('addressTemplate.email')} ? has-error">
+                        <div class="col-md-2">
+                            <label id="emailLbl" class="control-label" th:text="#{customer.email}"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input id="emailTxt" type="email" th:field="*{addressTemplate.email}" class="form-control" 
+                                   th:placeholder="#{watermark.email}" required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" th:classappend="${#fields.hasErrors('addressTemplate.contactPhoneNo')} ? has-error">
+                        <div class="col-md-2">
+                            <label id="contactPhoneNoLbl" class="control-label" th:text="#{customer.contactPhoneNo}"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input id="contactPhoneNoTxt" type="text" class="form-control" th:field="*{addressTemplate.contactPhoneNo}" 
+                                   th:placeholder="#{watermark.phoneNo}"/>
+                        </div>
+                    </div>            
+                </div>
+
+                <div class="row add-padding">
+                    <div class="col-md-12">
+                        <hr size="0" class="page-separator" />
+                    </div>
+                </div>
+
+                <div class="row add-padding">
+                    <div class="form-group" th:classappend="${#fields.hasErrors('addressTemplate.street')} ? has-error">
+                        <div class="col-md-2">
+                            <label id="streetLbl" class="control-label" th:text="#{customer.street}"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input id="streetTxt" class="form-control" type="text" th:field="*{addressTemplate.street}" 
+                                   th:placeholder="#{watermark.street}" required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" th:classappend="${#fields.hasErrors('addressTemplate.city')} ? has-error">
+                        <div class="col-md-2">
+                            <label id="cityLbl" class="control-label" th:text="#{customer.city}"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input id="cityTxt" class="form-control" type="text" th:field="*{addressTemplate.city}" 
+                                   th:placeholder="#{watermark.city}" required/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row add-padding">
+                    <div class="form-group" th:classappend="${#fields.hasErrors('addressTemplate.country')} ? has-error">
+                        <div class="col-md-2">
+                            <label id="countryLbl" class="control-label" th:text="#{customer.country}"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input id="countryTxt" class="form-control" type="text" th:field="*{addressTemplate.country}" 
+                                   th:placeholder="#{watermark.country}" required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" th:classappend="${#fields.hasErrors('addressTemplate.zipCode')} ? has-error">
+                        <div class="col-md-2">
+                            <label id="zipCodeLbl" class="control-label" th:text="#{customer.zipCode}"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input id="zipCodeTxt" class="form-control" type="text" th:field="*{addressTemplate.zipCode}" 
+                                   th:placeholder="#{watermark.zipCode}" />
+                        </div>
+                    </div>
+                </div>
+
+                
+            </form>
+        </div>
+    </body>
+</html>
